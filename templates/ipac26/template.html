@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang = "en">
+<head>
+	<meta charset = "utf-8">
+	<title>IPAC26 poster template</title>
+</head>
+<body>
+		<div class = "poster">
+
+			<table class = "header-table">
+			<tr>
+				<td class="logo-cell left">
+					<img src="assets/GSI_Logo.jpg">
+				</td>
+				<td class = "title-cell">
+					<div class = "title">
+						{{ title }}
+					</div>
+
+					{% for group in author_groups %}
+						<div class = "authors">
+							{{ group.authors | join(", ") }}
+						</div>
+						<div class = "affiliations">
+							{{ group.affiliation }}
+						</div>
+					{% endfor %}
+				</td>
+
+				<td class = "logo-cell right">
+				<img src = "assets/IPAC2026_logo.png">
+				</td>
+			</tr>
+			</table>
+
+			<table class = "content-table">
+				{% for row in content.rows %}
+					<tr>
+					{% for column in row.columns %}
+						<td colspan = "{{ column.colspan }}">
+							{% for box in column.content %}
+								<div class = "poster-box {{ box.class_name | default('') }}">
+									<div class = "box-title">{{ box.title }}</div>
+									<div class = "box-body">
+										{{ box.body | safe }}
+									</div>
+								</div>
+								{% if not loop.last %}<br>{% endif %}
+							{% endfor %}
+						</td>
+					{% endfor %}
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+  
+</body>
+</html>
